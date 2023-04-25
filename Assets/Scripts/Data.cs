@@ -73,8 +73,8 @@ public class UserData
     public string UserId;
     public string Password;
 
-    public string C_UserId;
-    public string C_Password;
+    //public string C_UserId;
+    //public string C_Password;
 
     public UserData(Data ContactData)
     {
