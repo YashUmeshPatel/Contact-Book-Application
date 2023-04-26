@@ -4,17 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 
 public class Data : MonoBehaviour
-{
-    public TMP_InputField userId;
-    public TMP_InputField password;
+{    
     public TMP_InputField fullName;
     public TMP_InputField mobileNumber;
 
     public TMP_InputField loginUserId;
-    public TMP_InputField loginPassword;
-
-    public TMP_InputField ContactName;
-    public TMP_InputField ContactNumber;
+    public TMP_InputField loginPassword;    
 
     public GameObject contactPrefab;
     public GameObject parent;  
@@ -28,38 +23,39 @@ public class Data : MonoBehaviour
     GameObject newObject;
 
     AppData appData;
-    UserData userData;
-    ContactBook book;
-    Contacts contacts;
 
     public static Data inst;
 
     private void Awake()
     {
-        contacts = new();
         appData = new();
-        book = new();
-        userData = new();
         inst = this;
     }    
 
-    public void addRegistrationData()
+    public void AddRegistrationData(string userId, string password)
     {
-        userData.UserId = userId.text;
-        userData.Password = password.text;
+        UserData userData = new();
+        userData.UserId = userId;
+        userData.Password = password;
+        userData.contactbook = new();
 
-        //Save();
+        appData.users.Add(userData);        
     }
 
-    public void addContacts()
+    public void AddContacts(string ContactName, string ContactNumber)
     {
-        contacts.C_UserId = ContactName.text;
-        contacts.C_Number = ContactNumber.text;
+        Contacts newcontact = new();
+        newcontact.C_UserId = ContactName;
+        newcontact.C_Number = ContactNumber;
 
-        appData.userList.book.contactList.Add(contacts);
+        UserData validUser = appData.users.Find(u => u.UserId == loginUserId.text);
 
-        Debug.Log("Contact ==> "+contacts.C_UserId);
-        Save();
+        if (validUser != null)
+        {
+            validUser.contactbook.contactList.Add(newcontact);
+        }
+
+        Debug.Log("Contact Added");        
     }
 
     private void Start()
@@ -69,8 +65,8 @@ public class Data : MonoBehaviour
 
     private void Update()
     {        
-        Debug.Log("Load User: " + ContactName.text);        
-        Debug.Log("Load Pass: " + ContactNumber.text);
+        //Debug.Log("Load User: " + ContactName.text);        
+       // Debug.Log("Load Pass: " + ContactNumber.text);
     }
 
     public void Save()
@@ -83,16 +79,16 @@ public class Data : MonoBehaviour
 
         //FileStream stream = new FileStream(path, FileMode.Create);
 
-        //UserData data = new UserData();
+        //AppData data = new AppData();
 
-        File.WriteAllText(path, JsonUtility.ToJson(userData));
+        File.WriteAllText(path, JsonUtility.ToJson(appData));
 
         //formatter.Serialize(stream, data);
         //stream.Close();
 
         Debug.Log("Saved");
-        Debug.Log("User: " + userData.UserId);
-        Debug.Log("Password: " + userData.Password);
+        //Debug.Log("User: " + 
+        //Debug.Log("Password: " + userData.Password);
     }
 
     public void LoadData()
@@ -105,11 +101,13 @@ public class Data : MonoBehaviour
         //contact.ContactNumber.text = data.C_Number;
     }
 
-    public void Login()
+    public void LoginValidate()
     {
         Debug.Log("Login Pressed");
 
-        if (loginUserId.text == _userName.text && loginPassword.text == _password)
+        UserData loginUser = appData.users.Find(u => u.UserId == loginUserId.text);        
+
+        if (loginUser != null && loginUser.Password == loginPassword.text)
         {
             isValid = true;
             Debug.Log("Valid_User");
@@ -141,7 +139,7 @@ public class Data : MonoBehaviour
 [System.Serializable]
 public class AppData
 {
-    public UserData userList = new();
+    public List<UserData> users = new();
 }
 
 [System.Serializable]
@@ -150,7 +148,7 @@ public class UserData
     public string UserId;
     public string Password;
 
-    public ContactBook book = new();
+    public ContactBook contactbook = new();
 
     //ContactBook book = new();
 

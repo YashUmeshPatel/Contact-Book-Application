@@ -2839,8 +2839,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  SubmitButton: {fileID: 1794640553}
   BackButton: {fileID: 72835936}
+  LoginButton: {fileID: 1160426712}
 --- !u!1 &445753558
 GameObject:
   m_ObjectHideFlags: 0
@@ -4886,8 +4886,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  LoginButton: {fileID: 1160426712}
-  SaveButton: {fileID: 763519616}
 --- !u!1 &879386422
 GameObject:
   m_ObjectHideFlags: 0
@@ -5333,7 +5331,7 @@ GameObject:
   - component: {fileID: 983140926}
   - component: {fileID: 983140927}
   m_Layer: 0
-  m_Name: DataStorage
+  m_Name: DataManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5366,14 +5364,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53ed3563bcc34f8cb4cdcbf38994321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userId: {fileID: 194541332}
-  password: {fileID: 62521149}
   fullName: {fileID: 1120131377}
   mobileNumber: {fileID: 1315446810}
   loginUserId: {fileID: 455777292}
   loginPassword: {fileID: 617604914}
-  ContactName: {fileID: 988155980}
-  ContactNumber: {fileID: 1232842281}
   contactPrefab: {fileID: 5848467946601491999, guid: 7c1175fee058e4208a8b46a100cd388d, type: 3}
   parent: {fileID: 149695498}
   _userName: {fileID: 159263635}
@@ -7152,7 +7146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+  userId: {fileID: 194541332}
+  password: {fileID: 62521149}
   RegisterButton: {fileID: 201368442}
+  SubmitButton: {fileID: 1794640553}
 --- !u!1 &1207263310
 GameObject:
   m_ObjectHideFlags: 0
@@ -10516,7 +10513,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+  ContactName: {fileID: 988155980}
+  ContactNumber: {fileID: 1232842281}
   AddContactButton: {fileID: 1691553645}
+  SaveButton: {fileID: 763519616}
 --- !u!1 &1845984799
 GameObject:
   m_ObjectHideFlags: 0

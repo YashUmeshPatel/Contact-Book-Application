@@ -21,9 +21,9 @@ class ScreenManager : BaseClass
         ScreenList[(int)MyScreen].showScreen();
         CurrentScreen = ScreenList[(int)MyScreen];
 
-        //if(MyScreen == Screen.ContactBookPage || MyScreen == Screen.ContactsPage)
-        //{
-        //    Data.inst.Save();
-        //}
+        if (MyScreen == Screen.ContactBookPage || MyScreen == Screen.ContactsPage)
+        {
+            Data.inst.Save();
+        }
     }
 }
