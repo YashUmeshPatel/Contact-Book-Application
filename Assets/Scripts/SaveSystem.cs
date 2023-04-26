@@ -4,20 +4,23 @@ using System.IO;
 
 public static class SaveSystem
 {        
-    public static void Save(Data ContactData)
+    public static void Save()
     {
-        BinaryFormatter formatter = new BinaryFormatter();
+        //BinaryFormatter formatter = new BinaryFormatter();
 
-        string path = Application.persistentDataPath + "/userData.data";
+        string path = Application.dataPath + "/userData.json";
 
         //string dataPath = Path.Combine(Application.persistentDataPath, "gameData.dat");
 
-        FileStream stream = new FileStream(path, FileMode.Create);
+        //FileStream stream = new FileStream(path, FileMode.Create);
 
-        UserData data = new UserData(ContactData);
+        UserData data = new UserData();        
 
-        formatter.Serialize(stream, data);
-        stream.Close();        
+        File.WriteAllText(path, JsonUtility.ToJson(data));
+
+        //formatter.Serialize(stream, data);
+        //stream.Close();
+        
         Debug.Log("Saved");
         Debug.Log("User: " + data.UserId);
         Debug.Log("Password: " + data.Password);
@@ -25,18 +28,20 @@ public static class SaveSystem
 
     public static UserData Load()
     {
-        string path = Application.persistentDataPath + "/userData.data";
+        string path = Application.dataPath + "/userData.json";
         //string dataPath = Path.Combine(Application.persistentDataPath, "gameData.dat");
 
         if (File.Exists(path))
         {
-            BinaryFormatter formatter = new BinaryFormatter();
+            string json = File.ReadAllText(path);
+            UserData data = JsonUtility.FromJson<UserData>(json);
+            //BinaryFormatter formatter = new BinaryFormatter();
 
-            FileStream stream = new FileStream(path, FileMode.Open);
+            //FileStream stream = new FileStream(path, FileMode.Open);
 
-            UserData data = formatter.Deserialize(stream) as UserData;
+            //UserData data = formatter.Deserialize(stream) as UserData;
 
-            stream.Close();
+            //stream.Close();
 
             //Debug.Log("Tolo : "+ data.UserId);
             return data;

@@ -12,7 +12,9 @@ public class ContactBookPage : BaseClass
     public void SubmitButton_OnClick()
     {
         ScreenManager.instance.showNextScreen(Screen.ContactBookPage);
-        Data.inst.LoadData();
+        //Data.inst.addRegistrationData();
+        //Data.inst.LoadData();
+        //Data.inst.Save();
     }
 
     public void BackButton_OnClick()

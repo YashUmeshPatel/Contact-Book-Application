@@ -10,13 +10,15 @@ public class ContactsPage : BaseClass
 
     public void LoginButton_OnClick()
     {
-        if(Data.inst.isValid)
+        //if(Data.inst.isValid)
             ScreenManager.instance.showNextScreen(Screen.ContactsPage);
     }    
 
     public void SaveButton_OnClick()
     {
         ScreenManager.instance.showNextScreen(Screen.ContactsPage);
+        //Data.inst.LoadData();
+        Data.inst.addContacts();
     }    
 
     public void Start()
