@@ -2839,7 +2839,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  BackButton: {fileID: 72835936}
   LoginButton: {fileID: 1160426712}
 --- !u!1 &445753558
 GameObject:
@@ -4886,6 +4885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+  BackButton: {fileID: 72835936}
 --- !u!1 &879386422
 GameObject:
   m_ObjectHideFlags: 0
@@ -5373,6 +5373,8 @@ MonoBehaviour:
   _userName: {fileID: 159263635}
   isValid: 0
   contact: {fileID: 0}
+  appData:
+    users: []
 --- !u!1 &988155978
 GameObject:
   m_ObjectHideFlags: 0
@@ -8645,7 +8647,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 202881830}
   m_HandleRect: {fileID: 202881829}
   m_Direction: 2
-  m_Value: 0.8095238
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
