@@ -161,4 +161,25 @@
 //    public string contactNumber;
 //}
 
+//# Load JSON file
+//with open('data.json', 'r') as file:
+//    data = json.load(file)
+
+//# Get the index of the entry to edit
+//index = int(input("Enter the index of the entry to edit: "))
+
+//# Get the field to edit
+//field = input("Enter the field to edit (C_UserId or C_Number): ")
+
+//# Get the new value for the field
+//new_value = input("Enter the new value: ")
+
+//# Update the value in the data
+//data[index][field] = new_value
+
+//# Save the updated data to the JSON file
+//with open('data.json', 'w') as file:
+//    json.dump(data, file)
+
+//print("Data updated successfully!")
 

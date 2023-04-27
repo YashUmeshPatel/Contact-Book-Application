@@ -14,7 +14,9 @@ public class Data : MonoBehaviour
     public GameObject contactPrefab;
     public GameObject parent;  
 
-    [SerializeField] private TMP_Text _userName;    
+    [SerializeField] private TMP_Text _userName;
+
+    public ViewDetailPage viewPage;
 
     [HideInInspector] public bool isValid;
     [HideInInspector] public ContactManager contact;
@@ -32,7 +34,7 @@ public class Data : MonoBehaviour
     bool isCreating;
 
     private void Awake()
-    {
+    {        
         Path = Application.persistentDataPath + "/Data.json";
         inst = this;
     }    
@@ -63,6 +65,7 @@ public class Data : MonoBehaviour
         CreatingContact(ContactName, ContactNumber);
         Debug.Log("Contact Added");        
     }
+
 
     private void Start()
     {
@@ -122,7 +125,7 @@ public class Data : MonoBehaviour
             _userName.text = loginUser.UserId;
             isValid = true;
             Debug.Log("Valid_User");
-            test(loginUser.contactbook.contactList.Count);
+            test(loginUser.contactbook.contactList.Count, loginUser);
 
            // Debug.Log(loginUser.contactbook.contactList.IndexOf(newcontact));
             //Debug.Log(loginUser.contactbook.contactList[1]);
@@ -134,7 +137,7 @@ public class Data : MonoBehaviour
             Debug.LogError("Invalid_User");
         }
     }
-
+ 
     public void CreatingContact(string ContactName, string ContactNumber)
     {
         Debug.Log("Prefab: "+contactPrefab.transform.position);        
@@ -146,13 +149,23 @@ public class Data : MonoBehaviour
         Debug.Log("newObject: " + newObject.transform.position);
     }
 
-    public void test(int count)
+    public void test(int count, UserData loginUser)
     {
         for(int i = 0; i <count; i++)
         {
             Debug.Log("CreateContact ==> " + i);
-            newContacts = Instantiate(contactPrefab, contactPrefab.transform.position, contactPrefab.transform.rotation, parent.transform);            
+            newContacts = Instantiate(contactPrefab, contactPrefab.transform.position, contactPrefab.transform.rotation, parent.transform);
+            ContactManager displayContacts = newContacts.GetComponent<ContactManager>();
+            displayContacts.ContactUserId.text = loginUser.contactbook.contactList[i].C_UserId;
+            displayContacts.ContactNumber.text = loginUser.contactbook.contactList[i].C_Number;
         }        
+    }
+
+    public void ViewContactDetail(string Name, string Number)
+    {
+        //viewPage = new();
+        viewPage.V_ContactName.text = Name;
+        viewPage.V_ContactNumber.text = Number;
     }
 
     public void test2()
