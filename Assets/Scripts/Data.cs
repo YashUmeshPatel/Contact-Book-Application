@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class Data : MonoBehaviour
 {    
@@ -36,7 +37,7 @@ public class Data : MonoBehaviour
 
     private void Awake()
     {        
-        Path = Application.persistentDataPath + "/Data.json";
+        Path = Application.persistentDataPath + "/Binary.Banana";
         inst = this;
     }    
 
@@ -74,39 +75,36 @@ public class Data : MonoBehaviour
 
     public void Save()
     {
-        string path = Path;
-        File.WriteAllText(path, JsonUtility.ToJson(appData));
+        //string path = Path;
+        //File.WriteAllText(path, JsonUtility.ToJson(appData));
 
-        /*
+        
         BinaryFormatter formatter = new BinaryFormatter();
-        string dataPath = Path.Combine(Application.persistentDataPath, "gameData.dat");
-        FileStream stream = new FileStream(path, FileMode.Create);
-        AppData data = new AppData();
-        formatter.Serialize(stream, data);
+        //string dataPath = path;
+        FileStream stream = new FileStream(Path, FileMode.Create);
+        //AppData data = new AppData();
+        formatter.Serialize(stream, appData);
         stream.Close();
-        */
         Debug.Log("Save: "+JsonUtility.ToJson(appData));
         Debug.Log("Saved");       
     }
 
     public void Load()
     {
-        string path = Path;
+        //string path = Path;
         //string dataPath = Path.Combine(Application.persistentDataPath, "gameData.dat");
 
-        if (File.Exists(path))
+        if (File.Exists(Path))
         {
-            string json = File.ReadAllText(path);
-            Debug.Log("Json: "+json);
-            appData = JsonUtility.FromJson<AppData>(json);
+            //string json = File.ReadAllText(Path);
+            //appData = JsonUtility.FromJson<AppData>(json);
 
-            /*
-            BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(path, FileMode.Open);
-            UserData data = formatter.Deserialize(stream) as UserData;
-            stream.Close();
-            */
+           // Debug.Log("Json: "+json);
             
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(Path, FileMode.Open);
+             appData = formatter.Deserialize(stream) as AppData;
+            stream.Close();                        
         }
         else
         {
