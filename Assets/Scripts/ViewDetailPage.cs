@@ -10,6 +10,12 @@ public class ViewDetailPage : BaseClass
     public Button BackButton;
     public Button EditButton;
 
+    public static ViewDetailPage inst;
+
+    private void Awake()
+    {
+        inst = this;
+    }
     private void Start()
     {
         EditButton.onClick.AddListener(EditButton_OnClick);
@@ -18,7 +24,10 @@ public class ViewDetailPage : BaseClass
 
     void EditButton_OnClick()
     {
+        Data.inst.EditContact();
+        Data.inst.DestroyContact();
         //Data.inst.EditData(V_ContactName.text, V_ContactNumber.text);
+        Data.inst.DisplayContact();
         ScreenManager.instance.showNextScreen(Screen.ContactsPage);
     }
 

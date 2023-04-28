@@ -14,12 +14,12 @@ public class Data : MonoBehaviour
     public GameObject contactPrefab;
     public GameObject parent;  
 
-    [SerializeField] private TMP_Text _userName;
-
-    public ViewDetailPage viewPage;
+    [SerializeField] private TMP_Text _userName;    
 
     [HideInInspector] public bool isValid;
     [HideInInspector] public ContactManager contact;
+    [HideInInspector] public string D_ContactName;
+    [HideInInspector] public string D_ContactNumber;
 
     GameObject newObject;
     GameObject newContacts;
@@ -32,6 +32,7 @@ public class Data : MonoBehaviour
     public static Data inst;
 
     bool isCreating;
+
 
     private void Awake()
     {        
@@ -65,7 +66,6 @@ public class Data : MonoBehaviour
         CreatingContact(ContactName, ContactNumber);
         Debug.Log("Contact Added");        
     }
-
 
     private void Start()
     {
@@ -125,7 +125,7 @@ public class Data : MonoBehaviour
             _userName.text = loginUser.UserId;
             isValid = true;
             Debug.Log("Valid_User");
-            test(loginUser.contactbook.contactList.Count, loginUser);
+            DisplayContact();
 
            // Debug.Log(loginUser.contactbook.contactList.IndexOf(newcontact));
             //Debug.Log(loginUser.contactbook.contactList[1]);
@@ -149,26 +149,22 @@ public class Data : MonoBehaviour
         Debug.Log("newObject: " + newObject.transform.position);
     }
 
-    public void test(int count, UserData loginUser)
+    public void DisplayContact()
     {
-        for(int i = 0; i <count; i++)
+        UserData loginUser = appData.users.Find(u => u.UserId == loginUserId.text);
+        int count = loginUser.contactbook.contactList.Count;
+
+        for (int i = 0; i <count; i++)
         {
             Debug.Log("CreateContact ==> " + i);
-            newContacts = Instantiate(contactPrefab, contactPrefab.transform.position, contactPrefab.transform.rotation, parent.transform);
+            newContacts = Instantiate(contactPrefab, parent.transform);
             ContactManager displayContacts = newContacts.GetComponent<ContactManager>();
             displayContacts.ContactUserId.text = loginUser.contactbook.contactList[i].C_UserId;
-            displayContacts.ContactNumber.text = loginUser.contactbook.contactList[i].C_Number;
+            displayContacts.ContactNumber.text = loginUser.contactbook.contactList[i].C_Number;            
         }        
     }
 
-    public void ViewContactDetail(string Name, string Number)
-    {
-        //viewPage = new();
-        viewPage.V_ContactName.text = Name;
-        viewPage.V_ContactNumber.text = Number;
-    }
-
-    public void test2()
+    public void DestroyContact()
     {
         GameObject[] contacts = GameObject.FindGameObjectsWithTag("Contacts");
         for(int i=0; i<contacts.Length; i++)
@@ -177,6 +173,32 @@ public class Data : MonoBehaviour
             Destroy(contacts[i]);
         }
     }
+
+    public void EditContact()
+    {
+        UserData loginUser = appData.users.Find(u => u.UserId == loginUserId.text);
+        int count = loginUser.contactbook.contactList.Count;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (loginUser.contactbook.contactList[i].C_UserId == D_ContactName)
+            {
+                loginUser.contactbook.contactList[i].C_UserId = ViewDetailPage.inst.V_ContactName.text;
+                loginUser.contactbook.contactList[i].C_Number = ViewDetailPage.inst.V_ContactNumber.text;                                
+                Debug.Log("BULLSEYE" + i);
+            }
+        }
+    }    
+
+    public void ViewContactDetail(string Name, string Number)
+    {
+        //viewPage = new();
+        D_ContactName = Name;
+        D_ContactNumber = Number;
+        ViewDetailPage.inst.V_ContactName.text = Name;
+        ViewDetailPage.inst.V_ContactNumber.text = Number;
+    }
+
 }
 
 [System.Serializable]

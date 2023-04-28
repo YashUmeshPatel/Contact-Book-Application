@@ -24,6 +24,6 @@ class ScreenManager : BaseClass
         if (MyScreen == Screen.ContactBookPage || MyScreen == Screen.ContactsPage)
         {
             Data.inst.Save();
-        }
+        }        
     }
 }

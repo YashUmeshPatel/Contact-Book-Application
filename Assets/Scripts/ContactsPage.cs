@@ -10,7 +10,7 @@ public class ContactsPage : BaseClass
     public void BackButton_OnClick()
     {
         Debug.Log("Back Pressed");
-        Data.inst.test2();
+        Data.inst.DestroyContact();
         ScreenManager.instance.showNextScreen(Screen.ContactBookPage);
     }
 
